@@ -37,7 +37,6 @@ module.exports = {
   },
   updateUser(request, response) {
     let { id } = request.params;
-    console.log(request.params);
     const { name } = request.body;
 
     id = Number(id);
