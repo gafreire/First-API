@@ -20,8 +20,9 @@ let contacts = [
 ];
 
 class ContactRepository {
-  async findAll() {
-    const rows = await db.query('SELECT * FROM contacts')
+  async findAll(orderBy) {
+    const direction = orderBy.toUpperCase() == 'DESC' ? 'DESC' : 'ASC';
+    const rows = await db.query(`SELECT * FROM contacts ORDER BY name ${direction}`)
     return rows
   }
 
@@ -34,7 +35,7 @@ class ContactRepository {
     const [row] = await db.query('SELECT * FROM contacts WHERE email = $1', [email])
     return row;
   }
-  
+
   delete(id) {
     return new Promise((resolve) => {
       contacts = contacts.filter((contact) => contact.id !== id);
